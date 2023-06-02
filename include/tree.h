@@ -1,53 +1,55 @@
 // Copyright 2022 NNTU-CS
 #ifndef INCLUDE_TREE_H_
 #define INCLUDE_TREE_H_
-#include <iostream>
 #include <vector>
-#include <algorithm>
 
 class Tree {
  private:
-  struct node {
-    std::vector<node*> vec;
-    char value;
-  };
-  node* root;
-  std::vector<std::vector<char>> helper;
-  node* Create(node* root, std::vector<char> helper) {
-    if (!root) root = new node;
-    if (helper.empty()) return root;
-    for (int i = 0; i < helper.size(); i++) {
-      std::vector<char> vect = helper;
-      node* val = new node;
-      val->value = helper[i];
-      root->vec.push_back(val);
-      vect.erase(vect.begin() + i);
-      Create(root->vec[i], vect);
+    struct Node {
+        char c;
+        std::vector<Node*> ptr;
+    };
+    std::vector<std::vector<char>> vec;
+    Node* root;
+    Node* create(Node* root, std::vector<char> vec) {
+        if (!root)
+            root = new Node;
+        for (int i = 0; i < vec.size(); ++i) {
+            std::vector<char> b = vec;
+            Node* a = new Node;
+            a->c = vec[i];
+            root->ptr.push_back(a);
+            b.erase(b.begin() + i);
+            create(root->ptr[i], b);
+        }
+        if (vec.empty())
+            return root;
+        return root;
     }
-    return root;
-  }
-  std::vector<char> Perm(node* root, std::vector<char>* ch) {
-    for (int i = 0; i < root->vec.size(); i++) {
-      ch->push_back(root->vec[i]->value);
-      if (root->vec[i]->vec.empty()) return *ch;
-      Perm(root->vec[i], ch);
-      if (ch->size() != 1) helper.push_back(*ch);
-      for (int j = 0; j< ch->size(); j++) {
-        ch->pop_back();
-      }
+    std::vector<char> Perm(Node* root, std::vector<char>* a) {
+        for (int i = 0; i < root->ptr.size(); ++i) {
+            a->push_back(root->ptr[i]->c);
+            if (root->ptr[i]->ptr.empty())
+                return *a;
+            Perm(root->ptr[i], a);
+            if (a->size() != 1)
+                vec.push_back(*a);
+            for (int g = 0; g < a->size(); ++g)
+                a->pop_back();
+        }
+        return *a;
     }
-    return *ch;
-  }
 
  public:
-  explicit Tree(std::vector<char> vec): root(nullptr) {
-    root = Create(root, vec);
-    std::vector<char> ch;
-    Perm(root, &ch);
-  }
-  std::vector<char> PermH(int i) const {
-    if (helper.size() < i) return std::vector<char>();
-    return helper[i];
-  }
-}
+        explicit Tree(std::vector<char> vec): root(nullptr) {
+        root = create(root, vec);
+        std::vector<char> b;
+        Perm(root, &b);
+    }
+    std::vector<char> perm(int n) const {
+        if (vec.size() < n)
+            return std::vector<char>();
+        return vec[n];
+    }
+};
 #endif  // INCLUDE_TREE_H_
