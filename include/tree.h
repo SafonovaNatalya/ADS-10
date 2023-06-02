@@ -18,9 +18,9 @@ class Tree {
       std::vector<char> vect = helper;
       node* val = new node;
       val->value = helper[i];
-      root->vec.push_back(a);
+      root->vec.push_back(val);
       vect.erase(vect.begin() + i);
-      create(root->vec[i], vect);
+      Create(root->vec[i], vect);
     }
     return root;
   }
@@ -34,12 +34,12 @@ class Tree {
         ch->pop_back();
       }
     }
-    return *a;
+    return *ch;
   }
 
  public:
   explicit Tree(std::vector<char> vec): root(nullptr) {
-    root = create(root, vec);
+    root = Create(root, vec);
     std::vector<char> ch;
     Perm(root, &ch);
   }
