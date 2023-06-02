@@ -4,7 +4,7 @@
 #include <vector>
 
 class Tree {
-  private:
+ private:
   struct node {
     std::vector<node*> vec;
     char value;
@@ -25,7 +25,7 @@ class Tree {
     return root;
   }
   std::vector<char> Perm(node* root, std::vector<char>* ch) {
-    for (int i = 0; i<root->vec.size(); i++) {
+    for (int i = 0; i < root->vec.size(); i++) {
       ch->push_back(root->vec[i]->value);
       if (root->vec[i]->vec.empty()) return *ch;
       Perm(root->vec[i], ch);
@@ -36,7 +36,8 @@ class Tree {
     }
     return *a;
   }
-  public:
+
+ public:
   explicit Tree(std::vector<char> vec): root(nullptr) {
     root = create(root, vec);
     std::vector<char> ch;
