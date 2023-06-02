@@ -8,7 +8,7 @@ class Tree {
   struct node {
     std::vector<node*> vec;
     char value;
-  }
+  };
   node* root;
   std::vector<std::vector<char>> helper;
   node* Create(node* root, std::vector<char> helper) {
