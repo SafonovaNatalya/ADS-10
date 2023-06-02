@@ -44,9 +44,9 @@ class Tree {
     std::vector<char> ch;
     Perm(root, &ch);
   }
-  std::vector<char> perm(int i) const {
+  std::vector<char> PermH(int i) const {
     if (helper.size() < i) return std::vector<char>();
     return helper[i];
   }
-}
+};
 #endif  // INCLUDE_TREE_H_
