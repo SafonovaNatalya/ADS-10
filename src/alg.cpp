@@ -5,7 +5,7 @@
 #include  <cstdlib>
 #include  "tree.h"
 
-std::vector<cha> Tree::getPerm(const Tree& tree, int n) {
+std::vector<char> Tree::getPerm(const Tree& tree, int n) {
   if (n > 0) {
     std::vector<char> temp = tree.PermH(n-1);
     return temp;
