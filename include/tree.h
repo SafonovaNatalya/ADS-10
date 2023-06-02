@@ -42,7 +42,7 @@ class Tree {
  public:
   std::vector<char> getPerm(const Tree& tree, int n);
 
-  public:
+ public:
   explicit Tree(std::vector<char> vec): root(nullptr) {
     root = Create(root, vec);
     std::vector<char> ch;
